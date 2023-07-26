@@ -14,7 +14,7 @@ PASSWORD = config['packt_credentials']['password']
 
 async def authenticate_packt(username, password):
     # Launch the browser and create a new page
-    browser = await launch(headless=False, executablePath='/usr/bin/chromium-browser') # specificate browser location if launch on Raspberry Pi
+    browser = await launch(headless=True, executablePath='/usr/bin/chromium-browser') # specificate browser location if launch on Raspberry Pi
     page = await browser.newPage()
 
     try:
