@@ -14,7 +14,7 @@ PASSWORD = config['packt_credentials']['password']
 
 async def authenticate_packt(username, password):
     # Launch the browser and create a new page
-    browser = await launch(headless=True, executablePath='/usr/bin/chromium-browser') # specificate browser location if launch on Raspberry Pi
+    browser = await launch(headless=False, executablePath='/usr/bin/chromium-browser') # specificate browser location if launch on Raspberry Pi
     page = await browser.newPage()
 
     try:
@@ -53,7 +53,8 @@ async def authenticate_packt(username, password):
         url = await page.evaluate("() => window.location.href")
         if url:
             print("Authenticated successfully.")
-            title = await page.evaluate('document.querySelector("h1.book-title")')
+            element = await page.waitForSelector('.book-title')
+            title = await page.evaluate('(element) => element.textContent', element)
             print(f"||[{title}]({url})||")
         else:
             print("Authentication failed.")
