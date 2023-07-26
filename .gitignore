@@ -1,0 +1,3 @@
+*.pyc
+.conf
+pyppeteer_parser_venv
